@@ -1,0 +1,4 @@
+1|Lapiz|800|2|
+2|Borrador|600|2|
+3|Sacapunta|500|2|
+4|Lapicero|1000|2|

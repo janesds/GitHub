@@ -1,0 +1,4 @@
+1|4|4|Janes Duran|2018/09/13
+2|2|Borrador|600|3|1800
+2|2|Borrador|600|5|3000
+2|2|Borrador|600|8|4800
