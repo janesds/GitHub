@@ -819,7 +819,7 @@ public class FrmClientes extends javax.swing.JInternalFrame {
     private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
          cliAct--;
         if (cliAct == -1) {
-            cliAct = misDatos.numeroClientes()- 1;;
+            cliAct = misDatos.numeroClientes()- 1;
         }
         mostrarResgistro();
     }//GEN-LAST:event_btnAnteriorActionPerformed
