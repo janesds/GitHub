@@ -319,16 +319,6 @@ public class FrmFactura extends javax.swing.JInternalFrame {
         llenarTabla();
     }//GEN-LAST:event_formInternalFrameOpened
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-//        if (cboProducto.getSelectedIndex() == 0) {
-//            JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un producto");
-//            cboProducto.requestFocusInWindow();
-//            return;
-//        }
-//        if (cboCliente.getSelectedIndex() == 0) {
-//            JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un cliente");
-//            cboCliente.requestFocusInWindow();
-//            return;
-//        }
         if ("".equals(txtCantidad.getText())) {
             JOptionPane.showMessageDialog(rootPane, "Debe ingresar un cantidad");
             txtCantidad.requestFocusInWindow();
@@ -369,12 +359,7 @@ public class FrmFactura extends javax.swing.JInternalFrame {
  
     }//GEN-LAST:event_btnAgregarActionPerformed
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
-//        if (cboCliente.getSelectedIndex() == 0) {
-//            JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un cliente");
-//            cboCliente.requestFocusInWindow();
-//            return;
-//        }
-        
+
         int totCan = new Integer(txtTotalCantidad.getText());
         if (totCan == 0) {
             JOptionPane.showMessageDialog(rootPane, "Debe ingresar detalle de la factura");
@@ -386,7 +371,6 @@ public class FrmFactura extends javax.swing.JInternalFrame {
         if (rpta != 0) {
             return;
         }
-        
         // adicionamos un consecutivo a la factura
         int numFac = misDatos.getNumFac() + 1;
         
@@ -470,7 +454,6 @@ public class FrmFactura extends javax.swing.JInternalFrame {
                     return;
                 }
             }
-            
         } catch (Exception e) {
             e.printStackTrace();
         }

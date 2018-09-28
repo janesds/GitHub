@@ -202,11 +202,9 @@ public class FrmBusquedaProducto extends javax.swing.JDialog {
                 return;
             }
         }
-        
         respuesta = Utilidades.objectToString(tblTabla.getValueAt(0, 0));
         dispose();
     }//GEN-LAST:event_btnAceptarActionPerformed
-
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

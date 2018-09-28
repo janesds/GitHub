@@ -14,7 +14,6 @@ public class FrmCambioClave extends javax.swing.JDialog {
         initComponents();
     }
 
-    
     public void setDatos(Datos misDatos) {
         this.misDatos = misDatos;
     }

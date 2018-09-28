@@ -553,51 +553,9 @@ public class FrmClientes extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        //habilitar botones
-        /*
-        btnPrimero.setEnabled(false);
-        btnAnterior.setEnabled(false);
-        btnSiguiente.setEnabled(false);
-        btnUltimo.setEnabled(false);
-        
-        btnNuevo.setEnabled(false);
-        btnPrimero.setEnabled(false);
-        btnBorrar.setEnabled(false);
-        btnBuscar.setEnabled(false);
-        btnEditar.setEnabled(false);
-        
-        btnCancelar.setEnabled(true);
-        btnGuardar.setEnabled(true);
-        */
         this.habilitarBotones(false);
-        
-        //habilitar campos
-        /*
-        txtIdCliente.setEnabled(true);
-        cboIdentificacion.setEnabled(true);
-        txtNombres.setEnabled(true);
-        txtApellidos.setEnabled(true);
-        txtDireccion.setEnabled(true);
-        txtTelefono.setEnabled(true);
-        cboDistrito.setEnabled(true);
-        dchFechaNacimiento.setEnabled(true);
-        */
         this.habilitarCampos(true);
-        
-        //limpiar campos
-        /*
-        txtIdCliente.setText("");
-        cboIdentificacion.setSelectedIndex(0);
-        txtNombres.setText("");
-        txtApellidos.setText("");
-        txtDireccion.setText("");
-        txtTelefono.setText("");
-        cboDistrito.setSelectedIndex(0);
-        dchFechaNacimiento.setDate(new Date());
-        dchFechaIngreso.setDate(new Date());
-        */
         this.limpiarCampos();
-        
         //activamos el flag de registro nuevo
         nuevo = true;
         
@@ -605,44 +563,6 @@ public class FrmClientes extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_btnNuevoActionPerformed
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        /*
-        //validaciones
-        if (txtIdCliente.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Debe digitar un ID");
-            txtIdCliente.requestFocusInWindow();
-            return;
-        }
-        if (cboIdentificacion.getSelectedIndex() == 0) {
-            JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un Tipo de Identificación");
-            cboIdentificacion.requestFocusInWindow();
-            return;
-        }
-        if (txtNombres.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Debe digitar un Nombre");
-            txtNombres.requestFocusInWindow();
-            return;
-        }
-        if (txtApellidos.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Debe digitar un Apellido");
-            txtApellidos.requestFocusInWindow();
-            return;
-        }
-        if (txtDireccion.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Debe digitar una Dirección");
-            txtDireccion.requestFocusInWindow();
-            return;
-        }
-        if (txtTelefono.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Debe digitar un Teléfono");
-            txtTelefono.requestFocusInWindow();
-            return;
-        }
-        if (dchFechaNacimiento.getDate().after(new Date())) {
-            JOptionPane.showMessageDialog(rootPane, "La Fecha de Nacimiento debe ser anterior a la fecha actual");
-            dchFechaNacimiento.requestFocusInWindow();
-            return;
-        }
-        */
         this.validarCampos();
         
         //si es nuevo, validamos que el usuario no exista
@@ -675,121 +595,20 @@ public class FrmClientes extends javax.swing.JInternalFrame {
         
         JOptionPane.showMessageDialog(rootPane, msg);
         
-        /*
-        btnPrimero.setEnabled(true);
-        btnAnterior.setEnabled(true);
-        btnSiguiente.setEnabled(true);
-        btnUltimo.setEnabled(true);
-        
-        btnNuevo.setEnabled(true);
-        btnPrimero.setEnabled(true);
-        btnBorrar.setEnabled(true);
-        btnBuscar.setEnabled(true);
-        btnEditar.setEnabled(true);
-        
-        btnCancelar.setEnabled(false);
-        btnGuardar.setEnabled(false);
-        */
         this.habilitarBotones(true);
-        
-        /*
-        //deshabilitar campos
-        txtIdCliente.setEnabled(false);
-        cboIdentificacion.setEnabled(false);
-        txtNombres.setEnabled(false);
-        txtApellidos.setEnabled(false);
-        txtDireccion.setEnabled(false);
-        txtTelefono.setEnabled(false);
-        cboDistrito.setEnabled(false);
-        dchFechaNacimiento.setEnabled(false);
-        */
         this.habilitarCampos(false);
-        /*
-        //limpiar campos
-        txtIdCliente.setText("");
-        cboIdentificacion.setSelectedIndex(0);
-        txtNombres.setText("");
-        txtApellidos.setText("");
-        txtDireccion.setText("");
-        txtTelefono.setText("");
-        cboDistrito.setSelectedIndex(0);
-        */
         this.limpiarCampos();
         
         //actualizamos los cambios en la tabla
         llenarTabla();
     }//GEN-LAST:event_btnGuardarActionPerformed
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        /*
-        btnPrimero.setEnabled(true);
-        btnAnterior.setEnabled(true);
-        btnSiguiente.setEnabled(true);
-        btnUltimo.setEnabled(true);
-        
-        btnNuevo.setEnabled(true);
-        btnPrimero.setEnabled(true);
-        btnBorrar.setEnabled(true);
-        btnBuscar.setEnabled(true);
-        btnEditar.setEnabled(true);
-        
-        btnCancelar.setEnabled(false);
-        btnGuardar.setEnabled(false);
-        */
         this.habilitarBotones(true);
-        /*
-        //deshabilitar campos
-        txtIdCliente.setEnabled(false);
-        cboIdentificacion.setEnabled(false);
-        txtNombres.setEnabled(false);
-        txtApellidos.setEnabled(false);
-        txtDireccion.setEnabled(false);
-        txtTelefono.setEnabled(false);
-        cboDistrito.setEnabled(false);
-        dchFechaNacimiento.setEnabled(false);
-        */
         this.habilitarCampos(false);
-        /*
-        //limpiar campos
-        txtIdCliente.setText("");
-        cboIdentificacion.setSelectedIndex(0);
-        txtNombres.setText("");
-        txtApellidos.setText("");
-        txtDireccion.setText("");
-        txtTelefono.setText("");
-        cboDistrito.setSelectedIndex(0);
-        */
         this.limpiarCampos();
     }//GEN-LAST:event_btnCancelarActionPerformed
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        /*
-        //habilitar botones
-        btnPrimero.setEnabled(false);
-        btnAnterior.setEnabled(false);
-        btnSiguiente.setEnabled(false);
-        btnUltimo.setEnabled(false);
-        
-        btnNuevo.setEnabled(false);
-        btnPrimero.setEnabled(false);
-        btnBorrar.setEnabled(false);
-        btnBuscar.setEnabled(false);
-        btnEditar.setEnabled(false);
-        
-        btnCancelar.setEnabled(true);
-        btnGuardar.setEnabled(true);
-        */
         this.habilitarBotones(false);
-        
-        /*
-        //habilitar campos
-        txtIdCliente.setEnabled(false);
-        cboIdentificacion.setEnabled(true);
-        txtNombres.setEnabled(true);
-        txtApellidos.setEnabled(true);
-        txtDireccion.setEnabled(true);
-        txtTelefono.setEnabled(true);
-        cboDistrito.setEnabled(true);
-        dchFechaNacimiento.setEnabled(true);
-        */
         this.habilitarCampos(true);
         txtIdCliente.setEnabled(false);
           //desactivamos el flag de registro nuevo

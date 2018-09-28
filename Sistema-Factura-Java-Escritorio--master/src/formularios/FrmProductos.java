@@ -441,44 +441,9 @@ public class FrmProductos extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        /*
-        //habilitar botones
-        btnPrimero.setEnabled(false);
-        btnAnterior.setEnabled(false);
-        btnSiguiente.setEnabled(false);
-        btnUltimo.setEnabled(false);
-        
-        btnNuevo.setEnabled(false);
-        btnPrimero.setEnabled(false);
-        btnBorrar.setEnabled(false);
-        btnBuscar.setEnabled(false);
-        btnEditar.setEnabled(false);
-        
-        btnCancelar.setEnabled(true);
-        btnGuardar.setEnabled(true);
-        */
         this.habilitarBotones(false);
-        
-        /*
-        //habilitar campos
-        txtIdProducto.setEnabled(true);
-        txtDescripcion.setEnabled(true);
-        txtPrecio.setEnabled(true);
-        cboIGV.setEnabled(true);
-        txtNota.setEnabled(true);
-        */
         this.habilitarCampos(true);
-        
-        /*
-        //limpiar campos
-        cboIGV.setSelectedIndex(0);
-        txtIdProducto.setText("");
-        txtDescripcion.setText("");
-        txtPrecio.setText("");
-        txtNota.setText("");
-        */
         this.limpiarCampos();
-        
         //activamos el flag de registro nuevo
         nuevo = true;
         
@@ -486,43 +451,8 @@ public class FrmProductos extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_btnNuevoActionPerformed
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        /*
-        //validaciones
-        if (txtIdProducto.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Debe digitar un ID");
-            txtIdProducto.requestFocusInWindow();
-            return;
-        }
-        if (txtDescripcion.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Debe digitar una Descripcion");
-            txtDescripcion.requestFocusInWindow();
-            return;
-        }
-        
-        if (txtPrecio.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Debe digitar un Precio");
-            txtPrecio.requestFocusInWindow();
-            return;
-        }
-        if (!Utilidades.isDouble(txtPrecio.getText())) {
-            JOptionPane.showMessageDialog(rootPane, "Debe digitar un valor numerico");
-            txtPrecio.requestFocusInWindow();
-            return;
-        }
-        int precio = Integer.parseInt(txtPrecio.getText());
-        if (precio <= 0) {
-            JOptionPane.showMessageDialog(rootPane, "Debe digitar un valor mayor a 0");
-            txtPrecio.requestFocusInWindow();
-            return;
-        }
-        
-        if (cboIGV.getSelectedIndex() == 0) {
-            JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un IGV");
-            cboIGV.requestFocusInWindow();
-            return;
-        }
-        */
         this.validarCampos();
+        
         int precio = Integer.parseInt(txtPrecio.getText());
         
         //si es nuevo, validamos que el usuario no exista
@@ -553,117 +483,23 @@ public class FrmProductos extends javax.swing.JInternalFrame {
         
         JOptionPane.showMessageDialog(rootPane, msg);
         
-        /*
-        btnPrimero.setEnabled(true);
-        btnAnterior.setEnabled(true);
-        btnSiguiente.setEnabled(true);
-        btnUltimo.setEnabled(true);
-        
-        btnNuevo.setEnabled(true);
-        btnPrimero.setEnabled(true);
-        btnBorrar.setEnabled(true);
-        btnBuscar.setEnabled(true);
-        btnEditar.setEnabled(true);
-        
-        btnCancelar.setEnabled(false);
-        btnGuardar.setEnabled(false);
-        */
         this.habilitarBotones(true);
-        
-        /*
-        //deshabilitar campos
-        txtIdProducto.setEnabled(false);
-        txtDescripcion.setEnabled(false);
-        txtPrecio.setEnabled(false);
-        cboIGV.setEnabled(false);
-        txtNota.setEnabled(false);
-        */
         this.habilitarCampos(false);
-        
-        /*
-        //limpiar campos
-        cboIGV.setSelectedIndex(0);
-        txtIdProducto.setText("");
-        txtDescripcion.setText("");
-        txtPrecio.setText("");
-        txtNota.setText("");
-        */
         this.limpiarCampos();
-        
         //actualizamos los cambios en la tabla
         llenarTabla();
     }//GEN-LAST:event_btnGuardarActionPerformed
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        /*
-        btnPrimero.setEnabled(true);
-        btnAnterior.setEnabled(true);
-        btnSiguiente.setEnabled(true);
-        btnUltimo.setEnabled(true);
-        
-        btnNuevo.setEnabled(true);
-        btnPrimero.setEnabled(true);
-        btnBorrar.setEnabled(true);
-        btnBuscar.setEnabled(true);
-        btnEditar.setEnabled(true);
-        
-        btnCancelar.setEnabled(false);
-        btnGuardar.setEnabled(false);
-        */
         this.habilitarBotones(true);
-        
-        /*
-        //deshabilitar campos
-        txtIdProducto.setEnabled(false);
-        txtDescripcion.setEnabled(false);
-        txtPrecio.setEnabled(false);
-        cboIGV.setEnabled(false);
-        txtNota.setEnabled(false);
-        */
         this.habilitarCampos(false);
-        
-        /*
-        //limpiar campos
-        cboIGV.setSelectedIndex(0);
-        txtIdProducto.setText("");
-        txtDescripcion.setText("");
-        txtPrecio.setText("");
-        txtNota.setText("");
-        */
         this.limpiarCampos();
     }//GEN-LAST:event_btnCancelarActionPerformed
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        /*
-        //habilitar botones
-        btnPrimero.setEnabled(false);
-        btnAnterior.setEnabled(false);
-        btnSiguiente.setEnabled(false);
-        btnUltimo.setEnabled(false);
-        
-        btnNuevo.setEnabled(false);
-        btnPrimero.setEnabled(false);
-        btnBorrar.setEnabled(false);
-        btnBuscar.setEnabled(false);
-        btnEditar.setEnabled(false);
-        
-        btnCancelar.setEnabled(true);
-        btnGuardar.setEnabled(true);
-        */
         this.habilitarBotones(false);
-        
-        /*
-        //habilitar campos
-        txtIdProducto.setEnabled(false);
-        txtDescripcion.setEnabled(true);
-        txtPrecio.setEnabled(true);
-        cboIGV.setEnabled(true);
-        txtNota.setEnabled(true);
-        */
         this.habilitarCampos(true);
         txtIdProducto.setEnabled(false);
-        
           //desactivamos el flag de registro nuevo
-        nuevo = false;
-        
+        nuevo = false;     
         txtDescripcion.requestFocusInWindow();
     }//GEN-LAST:event_btnEditarActionPerformed
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened

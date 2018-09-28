@@ -432,46 +432,9 @@ public class FrmUsuarios extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        /*
-        //habilitar botones
-        btnPrimero.setEnabled(false);
-        btnAnterior.setEnabled(false);
-        btnSiguiente.setEnabled(false);
-        btnUltimo.setEnabled(false);
-        
-        btnNuevo.setEnabled(false);
-        btnPrimero.setEnabled(false);
-        btnBorrar.setEnabled(false);
-        btnBuscar.setEnabled(false);
-        btnEditar.setEnabled(false);
-        
-        btnCancelar.setEnabled(true);
-        btnGuardar.setEnabled(true);
-        */
         this.habilitarBotones(false);
-        
-        /*
-        //habilitar campos
-        txtIdUsuario.setEnabled(true);
-        txtClave.setEnabled(true);
-        txtConfirmacion.setEnabled(true);
-        txtNombre.setEnabled(true);
-        txtApellidos.setEnabled(true);
-        cboPerfil.setEnabled(true);
-        */
         this.habilitarCampos(true);
-        
-        /*
-        //limpiar campos
-        cboPerfil.setSelectedIndex(0);
-        txtIdUsuario.setText("");
-        txtNombre.setText("");
-        txtApellidos.setText("");
-        txtClave.setText("");
-        txtConfirmacion.setText("");
-        */
         this.limpiarCampos();
-        
         //activamos el flag de registro nuevo
         nuevo = true;
         
@@ -479,30 +442,6 @@ public class FrmUsuarios extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_btnNuevoActionPerformed
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        
-        /*      
-        //validaciones     
-        if (txtIdUsuario.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Debe digitar un ID");
-            txtIdUsuario.requestFocusInWindow();
-            return;
-        }
-        if (cboPerfil.getSelectedIndex() == 0) {
-            JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un Perfil");
-            cboPerfil.requestFocusInWindow();
-            return;
-        }
-        if (txtNombre.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Debe digitar un Nombre(s)");
-            txtNombre.requestFocusInWindow();
-            return;
-        }
-        if (txtApellidos.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Debe digitar un Apellido(s)");
-            txtApellidos.requestFocusInWindow();
-            return;
-        }
-        */
         this.validarCampos();
         
         String clave = new String(txtClave.getPassword());
@@ -554,116 +493,19 @@ public class FrmUsuarios extends javax.swing.JInternalFrame {
        
        JOptionPane.showMessageDialog(rootPane, msg);
 
-       /*
-        btnPrimero.setEnabled(true);
-        btnAnterior.setEnabled(true);
-        btnSiguiente.setEnabled(true);
-        btnUltimo.setEnabled(true);
-        
-        btnNuevo.setEnabled(true);
-        btnPrimero.setEnabled(true);
-        btnBorrar.setEnabled(true);
-        btnBuscar.setEnabled(true);
-        btnEditar.setEnabled(true);
-        
-        btnCancelar.setEnabled(false);
-        btnGuardar.setEnabled(false);
-       */
        this.habilitarBotones(true);
-       
-       /*
-        //deshabilitar campos
-        txtIdUsuario.setEnabled(false);
-        txtClave.setEnabled(false);
-        txtConfirmacion.setEnabled(false);
-        txtNombre.setEnabled(false);
-        txtApellidos.setEnabled(false);
-        cboPerfil.setEnabled(false);
-        */
        this.habilitarCampos(false);
-       
-       /*
-        //limpiar campos
-        cboPerfil.setSelectedIndex(0);
-        txtIdUsuario.setText("");
-        txtNombre.setText("");
-        txtApellidos.setText("");
-        txtClave.setText("");
-        txtConfirmacion.setText("");
-        */
        this.limpiarCampos();
-       
         //actualizamos los cambios en la tabla
         llenarTabla();
     }//GEN-LAST:event_btnGuardarActionPerformed
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        /*
-        btnPrimero.setEnabled(true);
-        btnAnterior.setEnabled(true);
-        btnSiguiente.setEnabled(true);
-        btnUltimo.setEnabled(true);
-        
-        btnNuevo.setEnabled(true);
-        btnPrimero.setEnabled(true);
-        btnBorrar.setEnabled(true);
-        btnBuscar.setEnabled(true);
-        btnEditar.setEnabled(true);
-        
-        btnCancelar.setEnabled(false);
-        btnGuardar.setEnabled(false);
-        */
         this.habilitarBotones(true);
-        
-        /*
-        //deshabilitar campos
-        txtIdUsuario.setEnabled(false);
-        txtClave.setEnabled(false);
-        txtConfirmacion.setEnabled(false);
-        txtNombre.setEnabled(false);
-        txtApellidos.setEnabled(false);
-        cboPerfil.setEnabled(false);
-        */
         this.habilitarCampos(false);
-        
-        /*
-        //limpiar campos
-        cboPerfil.setSelectedIndex(0);
-        txtIdUsuario.setText("");
-        txtNombre.setText("");
-        txtApellidos.setText("");
-        txtClave.setText("");
-        txtConfirmacion.setText("");
-        */
         this.limpiarCampos();
     }//GEN-LAST:event_btnCancelarActionPerformed
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        /*
-        //habilitar botones
-        btnPrimero.setEnabled(false);
-        btnAnterior.setEnabled(false);
-        btnSiguiente.setEnabled(false);
-        btnUltimo.setEnabled(false);
-        
-        btnNuevo.setEnabled(false);
-        btnPrimero.setEnabled(false);
-        btnBorrar.setEnabled(false);
-        btnBuscar.setEnabled(false);
-        btnEditar.setEnabled(false);
-        
-        btnCancelar.setEnabled(true);
-        btnGuardar.setEnabled(true);
-        */
         this.habilitarBotones(false);
-        
-        /*
-        //habilitar campos
-        txtIdUsuario.setEnabled(false);
-        txtClave.setEnabled(true);
-        txtConfirmacion.setEnabled(true);
-        txtNombre.setEnabled(true);
-        txtApellidos.setEnabled(true);
-        cboPerfil.setEnabled(true);
-        */
         this.habilitarCampos(true);
         txtIdUsuario.setEnabled(false);
         

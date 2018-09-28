@@ -229,7 +229,6 @@ public class FrmBusquedaCliente extends javax.swing.JDialog {
                 return;
             }
         }
-        
         respuesta = Utilidades.objectToString(tblTabla.getValueAt(0, 0));
         dispose();
     }//GEN-LAST:event_btnAceptarActionPerformed
