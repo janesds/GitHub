@@ -1,6 +1,6 @@
-package Clases;
+package clases;
 
-import Formularios.frmLogin;
+import formularios.FrmLogin;
 
 
 public class JavaEscritorio {
@@ -9,7 +9,7 @@ public class JavaEscritorio {
         Datos misDatos = new Datos();
         
         //llamamos al formulario login
-        frmLogin miLogin = new frmLogin();
+        FrmLogin miLogin = new FrmLogin();
         miLogin.setDatos(misDatos);
         miLogin.setLocationRelativeTo(null);
         miLogin.setVisible(true);

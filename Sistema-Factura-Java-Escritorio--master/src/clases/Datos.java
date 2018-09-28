@@ -1,4 +1,4 @@
-package Clases;
+package clases;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -375,7 +375,7 @@ public class Datos {
         return "Usuario borrado correctamente";
     }
     public boolean validarUsuario(String usuario, String clave) {
-        boolean aux = false;
+        //boolean aux = false;
                 
         for (int i = 0; i < contUsuarios; i++) {
             if (misUsuarios[i].getIdUsuario().equals(usuario) && 
@@ -459,7 +459,7 @@ public class Datos {
         return contClientes;
     }
     public int posicionCliente(String cliente) {
-        int aux = -1;
+        //int aux = -1;
         for (int i = 0; i < contClientes; i++) {
             if (misClientes[i].getIdCliente().equals(cliente)) 
                 return 1;

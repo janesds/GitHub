@@ -1,8 +1,8 @@
-package Formularios;
+package formularios;
 
-import Clases.Datos;
-import Clases.Opcion;
-import Clases.Utilidades;
+import clases.Datos;
+import clases.Opcion;
+import clases.Utilidades;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.Date;
@@ -11,7 +11,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-public class frmFactura extends javax.swing.JInternalFrame {
+public class FrmFactura extends javax.swing.JInternalFrame {
 
     private Datos misDatos;
     private DefaultTableModel miTabla;
@@ -57,7 +57,7 @@ public class frmFactura extends javax.swing.JInternalFrame {
     public void setDatos(Datos misDatos) {
         this.misDatos = misDatos;
     }
-    public frmFactura() {
+    public FrmFactura() {
         initComponents();
     }
 
@@ -91,20 +91,20 @@ public class frmFactura extends javax.swing.JInternalFrame {
         setClosable(true);
         setTitle("Nueva Factura");
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
-            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
-                formInternalFrameOpened(evt);
-            }
-            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
             public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
             }
-            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
             }
             public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
             }
-            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
             }
-            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameOpened(evt);
             }
         });
 
@@ -329,7 +329,7 @@ public class frmFactura extends javax.swing.JInternalFrame {
 //            cboCliente.requestFocusInWindow();
 //            return;
 //        }
-        if (txtCantidad.getText().equals("")) {
+        if ("".equals(txtCantidad.getText())) {
             JOptionPane.showMessageDialog(rootPane, "Debe ingresar un cantidad");
             txtCantidad.requestFocusInWindow();
             return;
@@ -476,13 +476,13 @@ public class frmFactura extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
     private void btnBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteActionPerformed
-        frmBusquedaCliente miBusquedaCliente = new frmBusquedaCliente(null, closable);
+        FrmBusquedaCliente miBusquedaCliente = new FrmBusquedaCliente(null, closable);
         miBusquedaCliente.setDatos(misDatos);
         miBusquedaCliente.setLocationRelativeTo(null);
         miBusquedaCliente.setVisible(true);
         String rpta = miBusquedaCliente.getRespuesta();
         
-        if (rpta.equals(""))
+        if ("".equals(rpta))
             return;
         
         for (int i = 0; i < cboCliente.getItemCount(); i++) {
@@ -493,13 +493,13 @@ public class frmFactura extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnBuscarClienteActionPerformed
     private void btnBuscarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarProductoActionPerformed
-        frmBusquedaProducto miBusquedaProducto= new frmBusquedaProducto(null, closable);
+        FrmBusquedaProducto miBusquedaProducto= new FrmBusquedaProducto(null, closable);
         miBusquedaProducto.setDatos(misDatos);
         miBusquedaProducto.setLocationRelativeTo(null);
         miBusquedaProducto.setVisible(true);
         String rpta = miBusquedaProducto.getRespuesta();
         
-        if (rpta.equals(""))
+        if ("".equals(rpta))
             return;
         
         for (int i = 0; i < cboProducto.getItemCount(); i++) {

@@ -1,19 +1,19 @@
-package Formularios;
+package formularios;
 
-import Clases.Cliente;
-import Clases.Datos;
+import clases.Cliente;
+import clases.Datos;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class frmClientes extends javax.swing.JInternalFrame {
+public class FrmClientes extends javax.swing.JInternalFrame {
 
     private Datos misDatos;
     private int cliAct = 0;
     private boolean nuevo = false;
     private DefaultTableModel miTabla;
     
-    public frmClientes() {
+    public FrmClientes() {
         initComponents();
     }
     public void setDatos(Datos misDatos) {
@@ -103,6 +103,86 @@ public class frmClientes extends javax.swing.JInternalFrame {
             default: return "No definido";
        }       
     }
+     
+    public void habilitarBotones(boolean cond){
+        btnPrimero.setEnabled(cond);
+        btnAnterior.setEnabled(cond);
+        btnSiguiente.setEnabled(cond);
+        btnUltimo.setEnabled(cond);
+        
+        btnNuevo.setEnabled(cond);
+        btnPrimero.setEnabled(cond);
+        btnBorrar.setEnabled(cond);
+        btnBuscar.setEnabled(cond);
+        btnEditar.setEnabled(cond);
+        
+        btnCancelar.setEnabled(!cond);
+        btnGuardar.setEnabled(!cond);
+    }
+    
+    public void habilitarCampos(boolean cond){
+        txtIdCliente.setEnabled(cond);
+        cboIdentificacion.setEnabled(cond);
+        txtNombres.setEnabled(cond);
+        txtApellidos.setEnabled(cond);
+        txtDireccion.setEnabled(cond);
+        txtTelefono.setEnabled(cond);
+        cboDistrito.setEnabled(cond);
+        dchFechaNacimiento.setEnabled(cond);
+    }
+    
+    public void limpiarCampos(){
+        txtIdCliente.setText("");
+        cboIdentificacion.setSelectedIndex(0);
+        txtNombres.setText("");
+        txtApellidos.setText("");
+        txtDireccion.setText("");
+        txtTelefono.setText("");
+        cboDistrito.setSelectedIndex(0);
+        dchFechaNacimiento.setDate(new Date());
+        dchFechaIngreso.setDate(new Date());
+    }
+    
+    public void validarCampos(){
+        //validaciones
+        if ("".equals(txtIdCliente.getText())) {
+            JOptionPane.showMessageDialog(rootPane, "Debe digitar un ID");
+            txtIdCliente.requestFocusInWindow();
+            return;
+        }
+        if (cboIdentificacion.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un Tipo de Identificación");
+            cboIdentificacion.requestFocusInWindow();
+            return;
+        }
+        if ("".equals(txtNombres.getText())) {
+            JOptionPane.showMessageDialog(rootPane, "Debe digitar un Nombre");
+            txtNombres.requestFocusInWindow();
+            return;
+        }
+        if ("".equals(txtApellidos.getText())) {
+            JOptionPane.showMessageDialog(rootPane, "Debe digitar un Apellido");
+            txtApellidos.requestFocusInWindow();
+            return;
+        }
+        if ("".equals(txtDireccion.getText())) {
+            JOptionPane.showMessageDialog(rootPane, "Debe digitar una Dirección");
+            txtDireccion.requestFocusInWindow();
+            return;
+        }
+        if ("".equals(txtTelefono.getText())) {
+            JOptionPane.showMessageDialog(rootPane, "Debe digitar un Teléfono");
+            txtTelefono.requestFocusInWindow();
+            return;
+        }
+        if (dchFechaNacimiento.getDate().after(new Date())) {
+            JOptionPane.showMessageDialog(rootPane, "La Fecha de Nacimiento debe ser anterior a la fecha actual");
+            dchFechaNacimiento.requestFocusInWindow();
+            return;
+        }
+    }
+     
+    
  
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -146,20 +226,20 @@ public class frmClientes extends javax.swing.JInternalFrame {
         setClosable(true);
         setTitle("Clientes");
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
-            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
-                formInternalFrameOpened(evt);
-            }
-            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
             public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
             }
-            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
             }
             public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
             }
-            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
             }
-            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameOpened(evt);
             }
         });
 
@@ -403,7 +483,7 @@ public class frmClientes extends javax.swing.JInternalFrame {
                                         .addComponent(cboDistrito, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(txtIdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(cboIdentificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -474,6 +554,7 @@ public class frmClientes extends javax.swing.JInternalFrame {
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         //habilitar botones
+        /*
         btnPrimero.setEnabled(false);
         btnAnterior.setEnabled(false);
         btnSiguiente.setEnabled(false);
@@ -487,8 +568,11 @@ public class frmClientes extends javax.swing.JInternalFrame {
         
         btnCancelar.setEnabled(true);
         btnGuardar.setEnabled(true);
+        */
+        this.habilitarBotones(false);
         
         //habilitar campos
+        /*
         txtIdCliente.setEnabled(true);
         cboIdentificacion.setEnabled(true);
         txtNombres.setEnabled(true);
@@ -497,8 +581,11 @@ public class frmClientes extends javax.swing.JInternalFrame {
         txtTelefono.setEnabled(true);
         cboDistrito.setEnabled(true);
         dchFechaNacimiento.setEnabled(true);
+        */
+        this.habilitarCampos(true);
         
         //limpiar campos
+        /*
         txtIdCliente.setText("");
         cboIdentificacion.setSelectedIndex(0);
         txtNombres.setText("");
@@ -508,6 +595,8 @@ public class frmClientes extends javax.swing.JInternalFrame {
         cboDistrito.setSelectedIndex(0);
         dchFechaNacimiento.setDate(new Date());
         dchFechaIngreso.setDate(new Date());
+        */
+        this.limpiarCampos();
         
         //activamos el flag de registro nuevo
         nuevo = true;
@@ -516,7 +605,7 @@ public class frmClientes extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_btnNuevoActionPerformed
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        
+        /*
         //validaciones
         if (txtIdCliente.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Debe digitar un ID");
@@ -553,6 +642,8 @@ public class frmClientes extends javax.swing.JInternalFrame {
             dchFechaNacimiento.requestFocusInWindow();
             return;
         }
+        */
+        this.validarCampos();
         
         //si es nuevo, validamos que el usuario no exista
         int pos = misDatos.posicionCliente(txtIdCliente.getText());
@@ -584,6 +675,7 @@ public class frmClientes extends javax.swing.JInternalFrame {
         
         JOptionPane.showMessageDialog(rootPane, msg);
         
+        /*
         btnPrimero.setEnabled(true);
         btnAnterior.setEnabled(true);
         btnSiguiente.setEnabled(true);
@@ -597,7 +689,10 @@ public class frmClientes extends javax.swing.JInternalFrame {
         
         btnCancelar.setEnabled(false);
         btnGuardar.setEnabled(false);
+        */
+        this.habilitarBotones(true);
         
+        /*
         //deshabilitar campos
         txtIdCliente.setEnabled(false);
         cboIdentificacion.setEnabled(false);
@@ -607,7 +702,9 @@ public class frmClientes extends javax.swing.JInternalFrame {
         txtTelefono.setEnabled(false);
         cboDistrito.setEnabled(false);
         dchFechaNacimiento.setEnabled(false);
-        
+        */
+        this.habilitarCampos(false);
+        /*
         //limpiar campos
         txtIdCliente.setText("");
         cboIdentificacion.setSelectedIndex(0);
@@ -616,11 +713,14 @@ public class frmClientes extends javax.swing.JInternalFrame {
         txtDireccion.setText("");
         txtTelefono.setText("");
         cboDistrito.setSelectedIndex(0);
+        */
+        this.limpiarCampos();
         
         //actualizamos los cambios en la tabla
         llenarTabla();
     }//GEN-LAST:event_btnGuardarActionPerformed
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        /*
         btnPrimero.setEnabled(true);
         btnAnterior.setEnabled(true);
         btnSiguiente.setEnabled(true);
@@ -634,7 +734,9 @@ public class frmClientes extends javax.swing.JInternalFrame {
         
         btnCancelar.setEnabled(false);
         btnGuardar.setEnabled(false);
-        
+        */
+        this.habilitarBotones(true);
+        /*
         //deshabilitar campos
         txtIdCliente.setEnabled(false);
         cboIdentificacion.setEnabled(false);
@@ -644,7 +746,9 @@ public class frmClientes extends javax.swing.JInternalFrame {
         txtTelefono.setEnabled(false);
         cboDistrito.setEnabled(false);
         dchFechaNacimiento.setEnabled(false);
-        
+        */
+        this.habilitarCampos(false);
+        /*
         //limpiar campos
         txtIdCliente.setText("");
         cboIdentificacion.setSelectedIndex(0);
@@ -653,8 +757,11 @@ public class frmClientes extends javax.swing.JInternalFrame {
         txtDireccion.setText("");
         txtTelefono.setText("");
         cboDistrito.setSelectedIndex(0);
+        */
+        this.limpiarCampos();
     }//GEN-LAST:event_btnCancelarActionPerformed
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        /*
         //habilitar botones
         btnPrimero.setEnabled(false);
         btnAnterior.setEnabled(false);
@@ -669,7 +776,10 @@ public class frmClientes extends javax.swing.JInternalFrame {
         
         btnCancelar.setEnabled(true);
         btnGuardar.setEnabled(true);
+        */
+        this.habilitarBotones(false);
         
+        /*
         //habilitar campos
         txtIdCliente.setEnabled(false);
         cboIdentificacion.setEnabled(true);
@@ -679,7 +789,9 @@ public class frmClientes extends javax.swing.JInternalFrame {
         txtTelefono.setEnabled(true);
         cboDistrito.setEnabled(true);
         dchFechaNacimiento.setEnabled(true);
-        
+        */
+        this.habilitarCampos(true);
+        txtIdCliente.setEnabled(false);
           //desactivamos el flag de registro nuevo
         nuevo = false;
         
@@ -727,7 +839,7 @@ public class frmClientes extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnBorrarActionPerformed
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         String cliente = JOptionPane.showInputDialog("Ingrese código de Cliente");
-        if (cliente.equals("")) {
+        if ("".equals(cliente)) {
             return;
         }
         int pos = misDatos.posicionCliente(cliente);

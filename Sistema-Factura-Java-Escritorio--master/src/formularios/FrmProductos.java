@@ -1,48 +1,122 @@
-package Formularios;
+package formularios;
 
-import Clases.Datos;
-import Clases.Usuario;
+import clases.Datos;
+import clases.Producto;
+import clases.Utilidades;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class frmUsuarios extends javax.swing.JInternalFrame {
+public class FrmProductos extends javax.swing.JInternalFrame {
 
     private Datos misDatos;
-    private int usuAct = 0;
+    private int proAct = 0;
     private boolean nuevo = false;
     private DefaultTableModel miTabla;
     
-    public frmUsuarios() {
+    public FrmProductos() {
         initComponents();
     }
     public void setDatos(Datos misDatos) {
         this.misDatos = misDatos;
     }
     private void mostrarResgistro() {
-        txtIdUsuario.setText(misDatos.getUsuarios()[usuAct].getIdUsuario());
-        txtNombre.setText(misDatos.getUsuarios()[usuAct].getNombres());
-        txtApellidos.setText(misDatos.getUsuarios()[usuAct].getApellidos());
-        txtClave.setText(misDatos.getUsuarios()[usuAct].getClave());
-        txtConfirmacion.setText(misDatos.getUsuarios()[usuAct].getClave());
-        cboPerfil.setSelectedIndex((misDatos.getUsuarios()[usuAct].getPerfil()));
+        txtIdProducto.setText(misDatos.getProductos()[proAct].getIdProducto());
+        txtDescripcion.setText(misDatos.getProductos()[proAct].getDescripcion());
+        txtPrecio.setText("" + misDatos.getProductos()[proAct].getPrecio());
+        cboIGV.setSelectedIndex((misDatos.getProductos()[proAct].getIGV()));
+        txtNota.setText(misDatos.getProductos()[proAct].getNota());
     }
     private void llenarTabla() {
-        String titulos[] = { "ID Usuario", "Nombres", "Apellidos", "Perfil" };
-        String registro[] = new String[4];
+        String titulos[] = { "ID Producto", "Descripcion", "Precio", "IGV", "Nota" };
+        String registro[] = new String[5];
         miTabla = new DefaultTableModel(null, titulos);
         
-        for (int i = 0; i < misDatos.numeroUsuarios(); i++) {
-            registro[0] = misDatos.getUsuarios()[i].getIdUsuario();
-            registro[1] = misDatos.getUsuarios()[i].getNombres();
-            registro[2] = misDatos.getUsuarios()[i].getApellidos();
-            registro[3] = perfil(misDatos.getUsuarios()[i].getPerfil());
+        for (int i = 0; i < misDatos.numeroProductos(); i++) {
+            registro[0] = misDatos.getProductos()[i].getIdProducto();
+            registro[1] = misDatos.getProductos()[i].getDescripcion();
+            registro[2] = "" + misDatos.getProductos()[i].getPrecio();
+            registro[3] = igv(misDatos.getProductos()[i].getIGV());
+            registro[4] = misDatos.getProductos()[i].getNota();
             miTabla.addRow(registro);
         }
-        tblUsuarios.setModel(miTabla);
+        tblProducto.setModel(miTabla);
     }
-    private String perfil(int idPerfil) {
-        if (idPerfil == 1) return "Administrador";
-        else return "Empleado";
+    private String igv(int idIGV) {
+       switch(idIGV) {
+           case 0 : return "0 %";
+           case 1 : return "18 %";
+           case 2 : return "19 %"; 
+           default: return "No definido";
+       }       
+    }
+    
+    public void habilitarBotones(boolean cond){
+        btnPrimero.setEnabled(cond);
+        btnAnterior.setEnabled(cond);
+        btnSiguiente.setEnabled(cond);
+        btnUltimo.setEnabled(cond);
+        
+        btnNuevo.setEnabled(cond);
+        btnPrimero.setEnabled(cond);
+        btnBorrar.setEnabled(cond);
+        btnBuscar.setEnabled(cond);
+        btnEditar.setEnabled(cond);
+        
+        btnCancelar.setEnabled(!cond);
+        btnGuardar.setEnabled(!cond);
+    }
+    
+    public void habilitarCampos(boolean cond){
+        txtIdProducto.setEnabled(cond);
+        txtDescripcion.setEnabled(cond);
+        txtPrecio.setEnabled(cond);
+        cboIGV.setEnabled(cond);
+        txtNota.setEnabled(cond);
+    }
+    
+    public void limpiarCampos(){
+        cboIGV.setSelectedIndex(0);
+        txtIdProducto.setText("");
+        txtDescripcion.setText("");
+        txtPrecio.setText("");
+        txtNota.setText("");
+    }
+    
+    public void validarCampos(){
+        //validaciones
+        if ("".equals(txtIdProducto.getText())) {
+            JOptionPane.showMessageDialog(rootPane, "Debe digitar un ID");
+            txtIdProducto.requestFocusInWindow();
+            return;
+        }
+        if ("".equals(txtDescripcion.getText())) {
+            JOptionPane.showMessageDialog(rootPane, "Debe digitar una Descripcion");
+            txtDescripcion.requestFocusInWindow();
+            return;
+        }
+        
+        if ("".equals(txtPrecio.getText())) {
+            JOptionPane.showMessageDialog(rootPane, "Debe digitar un Precio");
+            txtPrecio.requestFocusInWindow();
+            return;
+        }
+        if (!Utilidades.isDouble(txtPrecio.getText())) {
+            JOptionPane.showMessageDialog(rootPane, "Debe digitar un valor numerico");
+            txtPrecio.requestFocusInWindow();
+            return;
+        }
+        int precio = Integer.parseInt(txtPrecio.getText());
+        if (precio <= 0) {
+            JOptionPane.showMessageDialog(rootPane, "Debe digitar un valor mayor a 0");
+            txtPrecio.requestFocusInWindow();
+            return;
+        }
+        
+        if (cboIGV.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un IGV");
+            cboIGV.requestFocusInWindow();
+            return;
+        }
     }
  
     @SuppressWarnings("unchecked")
@@ -50,17 +124,12 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        txtIdUsuario = new javax.swing.JTextField();
+        txtIdProducto = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        txtNombre = new javax.swing.JTextField();
-        txtApellidos = new javax.swing.JTextField();
+        txtDescripcion = new javax.swing.JTextField();
+        txtPrecio = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txtClave = new javax.swing.JPasswordField();
-        jLabel5 = new javax.swing.JLabel();
-        txtConfirmacion = new javax.swing.JPasswordField();
-        cboPerfil = new javax.swing.JComboBox();
-        jLabel6 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jPanel1 = new javax.swing.JPanel();
         btnPrimero = new javax.swing.JButton();
@@ -76,52 +145,46 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
         btnBorrar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblUsuarios = new javax.swing.JTable();
+        tblProducto = new javax.swing.JTable();
+        cboIGV = new javax.swing.JComboBox();
+        jLabel5 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtNota = new javax.swing.JTextArea();
 
         setClosable(true);
-        setTitle("Usuarios");
+        setTitle("Productos");
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
-            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
-                formInternalFrameOpened(evt);
-            }
-            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
             public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
             }
-            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
             }
             public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
             }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameOpened(evt);
+            }
         });
 
-        jLabel1.setText("ID Usuario *");
+        jLabel1.setText("ID Producto *");
 
-        txtIdUsuario.setEnabled(false);
+        txtIdProducto.setEnabled(false);
 
-        jLabel2.setText("Nombres *");
+        jLabel2.setText("Descripción *");
 
-        txtNombre.setEnabled(false);
+        txtDescripcion.setEnabled(false);
 
-        txtApellidos.setEnabled(false);
+        txtPrecio.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtPrecio.setEnabled(false);
 
-        jLabel3.setText("Apellidos *");
+        jLabel3.setText("Nota");
 
-        jLabel4.setText("Clave *");
-
-        txtClave.setEnabled(false);
-
-        jLabel5.setText("Confirmación *");
-
-        txtConfirmacion.setEnabled(false);
-
-        cboPerfil.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione un Perfil", "Administrador", "Empleado" }));
-        cboPerfil.setEnabled(false);
-
-        jLabel6.setText("Perfil *");
+        jLabel4.setText("IGV *");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -272,7 +335,7 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
         jLabel7.setForeground(java.awt.Color.blue);
         jLabel7.setText("* Campos Obligatorios");
 
-        tblUsuarios.setModel(new javax.swing.table.DefaultTableModel(
+        tblProducto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -283,7 +346,17 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tblUsuarios);
+        jScrollPane1.setViewportView(tblProducto);
+
+        cboIGV.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0 %", "18 %", "19 %" }));
+        cboIGV.setEnabled(false);
+
+        jLabel5.setText("Precio *");
+
+        txtNota.setColumns(20);
+        txtNota.setRows(5);
+        txtNota.setEnabled(false);
+        jScrollPane2.setViewportView(txtNota);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -300,63 +373,58 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 129, Short.MAX_VALUE)
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jSeparator1)
+                            .addComponent(jScrollPane1)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel1))
-                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel2)
+                                            .addComponent(jLabel1))
+                                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtIdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel6)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(cboPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(46, 46, 46)
+                                        .addComponent(jLabel3)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtDescripcion)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
-                                        .addComponent(jLabel5)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtConfirmacion, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(txtNombre)
-                                    .addComponent(txtApellidos)))
-                            .addComponent(jScrollPane1))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtIdProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(jLabel4)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(cboIGV, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(jScrollPane2))))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(txtIdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cboPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))))
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtIdProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(txtConfirmacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboIGV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(16, 16, 16)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -373,6 +441,7 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        /*
         //habilitar botones
         btnPrimero.setEnabled(false);
         btnAnterior.setEnabled(false);
@@ -387,102 +456,104 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
         
         btnCancelar.setEnabled(true);
         btnGuardar.setEnabled(true);
+        */
+        this.habilitarBotones(false);
         
+        /*
         //habilitar campos
-        txtIdUsuario.setEnabled(true);
-        txtClave.setEnabled(true);
-        txtConfirmacion.setEnabled(true);
-        txtNombre.setEnabled(true);
-        txtApellidos.setEnabled(true);
-        cboPerfil.setEnabled(true);
+        txtIdProducto.setEnabled(true);
+        txtDescripcion.setEnabled(true);
+        txtPrecio.setEnabled(true);
+        cboIGV.setEnabled(true);
+        txtNota.setEnabled(true);
+        */
+        this.habilitarCampos(true);
         
+        /*
         //limpiar campos
-        cboPerfil.setSelectedIndex(0);
-        txtIdUsuario.setText("");
-        txtNombre.setText("");
-        txtApellidos.setText("");
-        txtClave.setText("");
-        txtConfirmacion.setText("");
+        cboIGV.setSelectedIndex(0);
+        txtIdProducto.setText("");
+        txtDescripcion.setText("");
+        txtPrecio.setText("");
+        txtNota.setText("");
+        */
+        this.limpiarCampos();
         
         //activamos el flag de registro nuevo
         nuevo = true;
         
-        txtIdUsuario.requestFocusInWindow();
+        txtIdProducto.requestFocusInWindow();
         
     }//GEN-LAST:event_btnNuevoActionPerformed
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-              
-        //validaciones     
-        if (txtIdUsuario.getText().equals("")) {
+        /*
+        //validaciones
+        if (txtIdProducto.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Debe digitar un ID");
-            txtIdUsuario.requestFocusInWindow();
+            txtIdProducto.requestFocusInWindow();
             return;
         }
-        if (cboPerfil.getSelectedIndex() == 0) {
-            JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un Perfil");
-            cboPerfil.requestFocusInWindow();
-            return;
-        }
-        if (txtNombre.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Debe digitar un Nombre(s)");
-            txtNombre.requestFocusInWindow();
-            return;
-        }
-        if (txtApellidos.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Debe digitar un Apellido(s)");
-            txtApellidos.requestFocusInWindow();
+        if (txtDescripcion.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Debe digitar una Descripcion");
+            txtDescripcion.requestFocusInWindow();
             return;
         }
         
-        String clave = new String(txtClave.getPassword());
-        String confirmacion = new String(txtConfirmacion.getPassword());
+        if (txtPrecio.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Debe digitar un Precio");
+            txtPrecio.requestFocusInWindow();
+            return;
+        }
+        if (!Utilidades.isDouble(txtPrecio.getText())) {
+            JOptionPane.showMessageDialog(rootPane, "Debe digitar un valor numerico");
+            txtPrecio.requestFocusInWindow();
+            return;
+        }
+        int precio = Integer.parseInt(txtPrecio.getText());
+        if (precio <= 0) {
+            JOptionPane.showMessageDialog(rootPane, "Debe digitar un valor mayor a 0");
+            txtPrecio.requestFocusInWindow();
+            return;
+        }
         
-        if (clave.equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Debe digitar una Clave");
-            txtClave.requestFocusInWindow();
+        if (cboIGV.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un IGV");
+            cboIGV.requestFocusInWindow();
             return;
         }
-        if (confirmacion.equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Debe digitar una Confirmación");
-            txtConfirmacion.requestFocusInWindow();
-            return;
-        }
-        if (!clave.equals(confirmacion)) {
-            JOptionPane.showMessageDialog(rootPane, "La clave y la confirmacion no son iguales");
-            txtClave.setText("");
-            txtConfirmacion.setText("");
-            txtClave.requestFocusInWindow();
-            return;
-        }
+        */
+        this.validarCampos();
+        int precio = Integer.parseInt(txtPrecio.getText());
         
         //si es nuevo, validamos que el usuario no exista
-        int pos = misDatos.posicionUsuario(txtIdUsuario.getText());
+        int pos = misDatos.posicionProducto(txtIdProducto.getText());
         if (nuevo) {
             if (pos != -1) {
-                JOptionPane.showMessageDialog(rootPane, "Usuario ya existe");
-                txtIdUsuario.requestFocusInWindow();
+                JOptionPane.showMessageDialog(rootPane, "Producto ya existe");
+                txtIdProducto.requestFocusInWindow();
                 return;
             }
         } else {
             if (pos == -1) {
-                JOptionPane.showMessageDialog(rootPane, "Usuario no existe");
-                txtApellidos.requestFocusInWindow();
+                JOptionPane.showMessageDialog(rootPane, "Producto no existe");
+                txtDescripcion.requestFocusInWindow();
                 return;
             }
         }
         
         //creamos el objeto usuario y lo agregamos a datos
-       Usuario miUsuario = new Usuario(txtIdUsuario.getText(), txtNombre.getText(), txtApellidos.getText(), clave, cboPerfil.getSelectedIndex());
-       String  msg;
+        Producto miProducto = new Producto(txtIdProducto.getText(), txtDescripcion.getText(), precio, cboIGV.getSelectedIndex(), txtNota.getText());
+        String  msg;
        
-       if (nuevo) {
-            msg = misDatos.agregarUsuario(miUsuario);
+        if (nuevo) {
+            msg = misDatos.agregarProducto(miProducto);
         } else {
-           msg = misDatos.modificarUsuario(miUsuario, pos);
-       }
-       
-       JOptionPane.showMessageDialog(rootPane, msg);
-
+            msg = misDatos.modificarProducto(miProducto, pos);
+        }
+        
+        JOptionPane.showMessageDialog(rootPane, msg);
+        
+        /*
         btnPrimero.setEnabled(true);
         btnAnterior.setEnabled(true);
         btnSiguiente.setEnabled(true);
@@ -496,28 +567,34 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
         
         btnCancelar.setEnabled(false);
         btnGuardar.setEnabled(false);
-       
-       
-        //deshabilitar campos
-        txtIdUsuario.setEnabled(false);
-        txtClave.setEnabled(false);
-        txtConfirmacion.setEnabled(false);
-        txtNombre.setEnabled(false);
-        txtApellidos.setEnabled(false);
-        cboPerfil.setEnabled(false);
+        */
+        this.habilitarBotones(true);
         
+        /*
+        //deshabilitar campos
+        txtIdProducto.setEnabled(false);
+        txtDescripcion.setEnabled(false);
+        txtPrecio.setEnabled(false);
+        cboIGV.setEnabled(false);
+        txtNota.setEnabled(false);
+        */
+        this.habilitarCampos(false);
+        
+        /*
         //limpiar campos
-        cboPerfil.setSelectedIndex(0);
-        txtIdUsuario.setText("");
-        txtNombre.setText("");
-        txtApellidos.setText("");
-        txtClave.setText("");
-        txtConfirmacion.setText("");
+        cboIGV.setSelectedIndex(0);
+        txtIdProducto.setText("");
+        txtDescripcion.setText("");
+        txtPrecio.setText("");
+        txtNota.setText("");
+        */
+        this.limpiarCampos();
         
         //actualizamos los cambios en la tabla
         llenarTabla();
     }//GEN-LAST:event_btnGuardarActionPerformed
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        /*
         btnPrimero.setEnabled(true);
         btnAnterior.setEnabled(true);
         btnSiguiente.setEnabled(true);
@@ -531,24 +608,31 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
         
         btnCancelar.setEnabled(false);
         btnGuardar.setEnabled(false);
+        */
+        this.habilitarBotones(true);
         
+        /*
         //deshabilitar campos
-        txtIdUsuario.setEnabled(false);
-        txtClave.setEnabled(false);
-        txtConfirmacion.setEnabled(false);
-        txtNombre.setEnabled(false);
-        txtApellidos.setEnabled(false);
-        cboPerfil.setEnabled(false);
+        txtIdProducto.setEnabled(false);
+        txtDescripcion.setEnabled(false);
+        txtPrecio.setEnabled(false);
+        cboIGV.setEnabled(false);
+        txtNota.setEnabled(false);
+        */
+        this.habilitarCampos(false);
         
+        /*
         //limpiar campos
-        cboPerfil.setSelectedIndex(0);
-        txtIdUsuario.setText("");
-        txtNombre.setText("");
-        txtApellidos.setText("");
-        txtClave.setText("");
-        txtConfirmacion.setText("");
+        cboIGV.setSelectedIndex(0);
+        txtIdProducto.setText("");
+        txtDescripcion.setText("");
+        txtPrecio.setText("");
+        txtNota.setText("");
+        */
+        this.limpiarCampos();
     }//GEN-LAST:event_btnCancelarActionPerformed
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        /*
         //habilitar botones
         btnPrimero.setEnabled(false);
         btnAnterior.setEnabled(false);
@@ -563,71 +647,76 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
         
         btnCancelar.setEnabled(true);
         btnGuardar.setEnabled(true);
+        */
+        this.habilitarBotones(false);
         
+        /*
         //habilitar campos
-        txtIdUsuario.setEnabled(false);
-        txtClave.setEnabled(true);
-        txtConfirmacion.setEnabled(true);
-        txtNombre.setEnabled(true);
-        txtApellidos.setEnabled(true);
-        cboPerfil.setEnabled(true);
+        txtIdProducto.setEnabled(false);
+        txtDescripcion.setEnabled(true);
+        txtPrecio.setEnabled(true);
+        cboIGV.setEnabled(true);
+        txtNota.setEnabled(true);
+        */
+        this.habilitarCampos(true);
+        txtIdProducto.setEnabled(false);
         
           //desactivamos el flag de registro nuevo
         nuevo = false;
         
-        txtNombre.requestFocusInWindow();
+        txtDescripcion.requestFocusInWindow();
     }//GEN-LAST:event_btnEditarActionPerformed
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
       mostrarResgistro();
       llenarTabla();
     }//GEN-LAST:event_formInternalFrameOpened
     private void btnPrimeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrimeroActionPerformed
-        usuAct = 0;
+        proAct = 0;
         mostrarResgistro();
     }//GEN-LAST:event_btnPrimeroActionPerformed
     private void btnUltimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUltimoActionPerformed
-        usuAct = misDatos.numeroUsuarios() - 1;
+        proAct = misDatos.numeroProductos()- 1;
         mostrarResgistro();
     }//GEN-LAST:event_btnUltimoActionPerformed
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
-       usuAct++;
-        if (usuAct == misDatos.numeroUsuarios()) {
-            usuAct = 0;
+       proAct++;
+        if (proAct == misDatos.numeroProductos()) {
+            proAct = 0;
         }
         mostrarResgistro();
     }//GEN-LAST:event_btnSiguienteActionPerformed
     private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
-         usuAct--;
-        if (usuAct == -1) {
-            usuAct = misDatos.numeroUsuarios() - 1;;
+         proAct--;
+        if (proAct == -1) {
+            proAct = misDatos.numeroProductos()- 1;
         }
         mostrarResgistro();
     }//GEN-LAST:event_btnAnteriorActionPerformed
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-        int rta = JOptionPane.showConfirmDialog(rootPane, "¿Es seguro de borrar el registro?");
+        int rta = JOptionPane.showConfirmDialog(rootPane, "¿Esta seguro de borrar el registro?");
         if (rta !=  0) {
             return;
         }
         String msg;
-        msg = misDatos.borrarUsuario(usuAct);
+        msg = misDatos.borrarProducto(proAct);
         JOptionPane.showMessageDialog(rootPane, msg);
-        usuAct = 0;
+        proAct = 0;
         mostrarResgistro();
         
           //actualizamos los cambios en la tabla
         llenarTabla();
     }//GEN-LAST:event_btnBorrarActionPerformed
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        String usuario = JOptionPane.showInputDialog("Ingrese código de usuario");
-        if (usuario.equals("")) {
+        String producto = JOptionPane.showInputDialog("Ingrese código de Producto");
+        if (producto.equals("")) {
             return;
         }
-        int pos = misDatos.posicionUsuario(usuario);
+        int pos = misDatos.posicionProducto(producto);
         if (pos == -1) {
-            JOptionPane.showMessageDialog(rootPane, "Usuario no existe");
+            JOptionPane.showMessageDialog(rootPane, "Producto no existe");
             return;
         }
-        usuAct = pos;
+        proAct = pos;
         mostrarResgistro();
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -643,23 +732,22 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnPrimero;
     private javax.swing.JButton btnSiguiente;
     private javax.swing.JButton btnUltimo;
-    private javax.swing.JComboBox cboPerfil;
+    private javax.swing.JComboBox cboIGV;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable tblUsuarios;
-    private javax.swing.JTextField txtApellidos;
-    private javax.swing.JPasswordField txtClave;
-    private javax.swing.JPasswordField txtConfirmacion;
-    private javax.swing.JTextField txtIdUsuario;
-    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTable tblProducto;
+    private javax.swing.JTextField txtDescripcion;
+    private javax.swing.JTextField txtIdProducto;
+    private javax.swing.JTextArea txtNota;
+    private javax.swing.JTextField txtPrecio;
     // End of variables declaration//GEN-END:variables
 }

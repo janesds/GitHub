@@ -1,18 +1,19 @@
-package Formularios;
+package formularios;
 
-import Clases.Datos;
+import clases.Datos;
 import javax.swing.JOptionPane;
 
-public class frmCambioClave extends javax.swing.JDialog {
-
-    public frmCambioClave(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-    }
+public class FrmCambioClave extends javax.swing.JDialog {
 
     private String clave;
     private String usuario;
     private Datos misDatos;
+    
+    public FrmCambioClave(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+    }
+
     
     public void setDatos(Datos misDatos) {
         this.misDatos = misDatos;
@@ -125,17 +126,17 @@ public class frmCambioClave extends javax.swing.JDialog {
         String nueva = new String(txtPasswordNuevo.getPassword());
         String confirmacion = new String(txtPasswordConfirmacion.getPassword());
         
-        if (actual.equals("")) {
+        if ("".equals(actual)) {
             JOptionPane.showMessageDialog(rootPane, "Debe ingresar la clave actual");
             txtPasswordActual.requestFocusInWindow();
             return;
         }
-        if (nueva.equals("")) {
+        if ("".equals(nueva)) {
             JOptionPane.showMessageDialog(rootPane, "Debe ingresar una clave actual");
             txtPasswordNuevo.requestFocusInWindow();
             return;
         }
-        if (confirmacion.equals("")) {
+        if ("".equals(confirmacion)) {
             JOptionPane.showMessageDialog(rootPane, "Debe ingresar una confirmación de la clave");
             txtPasswordConfirmacion.requestFocusInWindow();
             return;
@@ -178,20 +179,21 @@ public class frmCambioClave extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmCambioClave.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCambioClave.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmCambioClave.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCambioClave.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmCambioClave.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCambioClave.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmCambioClave.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCambioClave.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                frmCambioClave dialog = new frmCambioClave(new javax.swing.JFrame(), true);
+                FrmCambioClave dialog = new FrmCambioClave(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

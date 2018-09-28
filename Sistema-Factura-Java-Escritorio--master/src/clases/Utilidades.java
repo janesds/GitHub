@@ -1,4 +1,4 @@
-package Clases;
+package clases;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
